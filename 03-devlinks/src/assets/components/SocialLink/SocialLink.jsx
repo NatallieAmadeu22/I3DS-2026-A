@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React, { Children } from 'react';
 
 const SocialLink = ({ url, icon}) => {
   return (
@@ -9,7 +9,7 @@ const SocialLink = ({ url, icon}) => {
 
    </a>
   );
-}
+};
 
 
 export default SocialLink

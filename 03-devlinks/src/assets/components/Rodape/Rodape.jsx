@@ -1,5 +1,5 @@
-import React, { Children } from 'react'
-
+import React from 'react'
+import "./Rodape.module.css"
 const Rodape = ({children}) => {
   return (
     <footer>
@@ -9,4 +9,4 @@ const Rodape = ({children}) => {
   );
 };
 
-export default Rodape
+export default Rodape;
