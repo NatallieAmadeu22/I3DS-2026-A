@@ -2,9 +2,11 @@ footer {
   text-align: center;
   font-size: 14px;
   padding-top: 24px;
+  color: var(--text-color);
 
   & a {
-    color: var(--text-color);
+    color: var(--accent-color);
     text-decoration: none;
+    font-weight: bold;
   }
 }

@@ -23,7 +23,7 @@ const App = () => {
         />
       </div>
 
-      <Rodape>Natallie </Rodape>
+      <Rodape link={"https://github.com/NatallieAmadeu22"} > Natallie </Rodape>
     </div>
   );
 };
