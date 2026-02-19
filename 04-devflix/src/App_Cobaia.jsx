@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./App.css";
 
@@ -7,19 +6,33 @@ import lupa from "./assets/search.svg";
 import Rodape from "./components/Rodape/Rodape";
 
 const App = () => {
-const [movies, setMovies] = useState([]);
+   const [filmes] = useState([
+    {
+      id: 1,
+      titulo: "Série JavaScript",
+      sinopse: "Aprenda JavaScript do zero",
+      genero: "Educação",
+      duracao: 120,
+      imagem: ""
+    },
+    {
+      id: 2,
+      titulo: "React Avançado",
+      sinopse: "Domine React em produção",
+      genero: "Educação",
+      duracao: 180,
+      imagem: ""
+    },
+    {
+      id: 3,
+      titulo: "Web Design Moderno",
+      sinopse: "Crie interfaces incríveis",
+      genero: "Design",
+      duracao: 90,
+      imagem: ""
+    }
+  ]);
 
-const apiKey = import.meta.env.VITE_OMDB_API_KEY
-const apiUrl = `https:omdbapi.com/?apikey=${apiKey´
-
-const searchMovies = async (title) => {
-  const response = await fetch (´${apiUrl} &s=${title}´)
-  const data = await response.json
-
-
-  setMovies(data.Search)
-}
-  
   return (
     <div id="App">
       <img
@@ -38,12 +51,17 @@ const searchMovies = async (title) => {
         />
       </div>
 
-<div className="container">
-  {movies.map
+{filmes.map((filme, index) => (
 
-  }
-
+<div key={index}>
+  <h2>{filme.titulo}</h2>
+  <h3>{filme.duracao}</h3>
+  <h4>{filme.sinopse}</h4>
+  <br/>
+  <br/>
+  <br/>
 </div>
+))}
 
   <Rodape link={"https://github.com/NatallieAmadeu22"} > Natallie </Rodape>
     </div>
