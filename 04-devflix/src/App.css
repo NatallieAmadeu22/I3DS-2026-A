@@ -28,7 +28,26 @@
 body{
   font-family: var(--font-raleway);
   background-color: var(--bg-primary);
+
+  color: var(--text-primary);
+  transition: 
+  background-color 0.3s ease, color 0.3s ease;
 }
 
+#App {
+  padding: 4em;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo{
+  max-width: 70%;
+  overflow: hidden;
+  height: auto;
+  display: block;
+  margin: auto;
+  }
 
 
