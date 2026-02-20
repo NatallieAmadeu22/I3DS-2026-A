@@ -6,64 +6,59 @@ import lupa from "./assets/search.svg";
 import Rodape from "./components/Rodape/Rodape";
 
 const App = () => {
-   const [filmes] = useState([
+  const [filmes] = useState([
     {
-      id: 1,
+      id: 1245,
       titulo: "Série JavaScript",
       sinopse: "Aprenda JavaScript do zero",
       genero: "Educação",
       duracao: 120,
-      imagem: ""
+      imagem: "",
     },
     {
-      id: 2,
+      id: 21231,
       titulo: "React Avançado",
       sinopse: "Domine React em produção",
       genero: "Educação",
       duracao: 180,
-      imagem: ""
+      imagem: "",
     },
     {
-      id: 3,
+      id: 39854,
       titulo: "Web Design Moderno",
       sinopse: "Crie interfaces incríveis",
       genero: "Design",
       duracao: 90,
-      imagem: ""
-    }
+      imagem: "",
+    },
   ]);
 
   return (
     <div id="App">
       <img
-        id="logo"
+        id="Logo"
         src={logo}
-        alt="Logotipo do serviço de streaming DEVFLIX com letras vermelhas em fundo preto, representando uma plataforma de entretenimento digital."
+        alt="Logotipo do serviço de streaming Devflix, com letras vermelhas e fundo preto, promovendo conteúdo de séries, filmes e entretenimento online."
       />
 
       <div className="search">
-        <input type="text" placeholder="Pesquise por filmes e séries..." />
-        <img
-          role="button"
-          src={lupa}
-          onClick={(e) => e.stopPropagation}
-          alt="Botão de ação para pesquisa!"
-        />
+        <input type="text" placeholder="Pesquise por filmes" />
+        <img src={lupa} alt="Botão de ação para pesquisa!" />
       </div>
 
-{filmes.map((filme, index) => (
+      <>
+        {filmes.map((filme, index) => (
+          <div key={index}>
+            <h2>{filme.titulo}</h2>
+            <h3>{filme.duracao}</h3>
+            <h4>{filme.sinopse}</h4>
+            <br />
+            <br />
+          </div>
+        ))}
+      </>
 
-<div key={index}>
-  <h2>{filme.titulo}</h2>
-  <h3>{filme.duracao}</h3>
-  <h4>{filme.sinopse}</h4>
-  <br/>
-  <br/>
-  <br/>
-</div>
-))}
-
-  <Rodape link={"https://github.com/NatallieAmadeu22"} > Natallie </Rodape>
+      <Rodape link={"https://github.com/ProfCastello"}>ProfCastello</Rodape>
     </div>
   );
 };
