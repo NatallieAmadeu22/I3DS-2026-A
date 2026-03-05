@@ -26,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchInitialMovies = async () => {
-      await searchMovies("Hulk"); // termo para pesquina ao carregar o site
+      await searchMovies("Barbie"); // termo para pesquina ao carregar o site
     };
     fetchInitialMovies();
   }, []);
