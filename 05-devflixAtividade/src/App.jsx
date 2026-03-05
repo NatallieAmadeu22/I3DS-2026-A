@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-import logo from "./assets/devflix.png";
+import logo from "./assets/Gemini_Generated_Image_tyxns3tyxns3tyxn.png";
 import lupa from "./assets/search.svg";
 
 import Rodape from "./components/Rodape/Rodape";
@@ -36,7 +36,7 @@ const App = () => {
       <img
         id="Logo"
         src={logo}
-        alt="Logotipo do serviço de streaming Devflix, com letras vermelhas e fundo preto, promovendo conteúdo de séries, filmes e entretenimento online."
+        alt="Logotipo do serviço de streaming Natflix, com letras rosa e fundo branco, promovendo conteúdo de séries, filmes e entretenimento online."
       />
 
       <div className="search">
