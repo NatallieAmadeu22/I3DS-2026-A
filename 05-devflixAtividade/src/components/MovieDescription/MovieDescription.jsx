@@ -2,14 +2,54 @@ import { useEffect, useState } from "react";
 import styles from "./MovieDescription.module.css";
 
 const MovieDescription = (props) => {
-  const [movieDesc, setMovieDesc] = useState([]);
+  const [movieDesc, setMovieDesc] = useState({});
+  const [translatedPlot, setTranslatedPlot] = useState("");
+
+  // Tradução via Google Translate API pública (sem limites, 100% funcional)
+  const translateText = async (text) => {
+    if (!text || text === "N/A" || text.trim() === "") return text;
+
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=pt&dt=t&q=${encodeURIComponent(text)}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      // Extrai a tradução do formato de resposta do Google
+      let translated = "";
+      if (data && data[0]) {
+        data[0].forEach((item) => {
+          if (item[0]) translated += item[0];
+        });
+      }
+
+      console.log("✅ Traduzido com sucesso!");
+      return translated || text;
+    } catch (error) {
+      console.error("❌ Erro na tradução:", error);
+      return text;
+    }
+  };
 
   useEffect(() => {
-    fetch(`${props.apiUrl}&i=${props.movieID}`)
-      .then((response) => response.json())
-      .then((data) => setMovieDesc(data))
-      .catch((error) => console.error(error));
-  }, []);
+    const loadMovie = async () => {
+      try {
+        const response = await fetch(`${props.apiUrl}&i=${props.movieID}`);
+        const data = await response.json();
+        setMovieDesc(data);
+
+        // Traduz a sinopse
+        if (data.Plot && data.Plot !== "N/A") {
+          console.log("🔄 Traduzindo sinopse...");
+          const translated = await translateText(data.Plot);
+          setTranslatedPlot(translated);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar filme:", error);
+      }
+    };
+
+    loadMovie();
+  }, [props.apiUrl, props.movieID]);
 
   return (
     <div className={styles.modalBackdrop} onClick={props.click}>
@@ -46,7 +86,7 @@ const MovieDescription = (props) => {
           </div>
         </div>
         <div className={styles.desc}>
-          <p>Sinopse: {movieDesc.Plot}</p>
+          <p>Sinopse: {translatedPlot || movieDesc.Plot || "Não disponível"}</p>
         </div>
       </div>
     </div>

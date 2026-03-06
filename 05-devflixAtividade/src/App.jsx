@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-import logo from "./assets/Gemini_Generated_Image_tyxns3tyxns3tyxn.png";
-import lupa from "./assets/search.svg";
+import logo from "./assets/Gemini_Generated_Image_tyxns3tyxns3tyxn-removebg-preview.png";
+import lupa from "./assets/search-heart-fill.svg";
 
 import Rodape from "./components/Rodape/Rodape";
 import MovieCard from "./components/MovieCard/MovieCard";
@@ -10,10 +10,30 @@ import MovieCard from "./components/MovieCard/MovieCard";
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
+  const [theme, setTheme] = useState(() => {
+    // Carrega o tema salvo ou usa o padrão do sistema
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) return savedTheme;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
 
   //Utilizando uma CHAVE de API do arquivo .env
   const apiKey = import.meta.env.VITE_OMDB_API_KEY;
   const apiUrl = `https://omdbapi.com/?apikey=${apiKey}`;
+
+  // Função para alternar o tema
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  // Aplica o tema ao body
+  useEffect(() => {
+    document.body.setAttribute("data-theme", theme);
+  }, [theme]);
 
   //Criando a conexão com a API e trazendo informações
   const searchMovies = async (title) => {
@@ -33,6 +53,14 @@ const App = () => {
 
   return (
     <div id="App">
+      <button
+        className="theme-toggle"
+        onClick={toggleTheme}
+        title="Alternar tema"
+      >
+        {theme === "light" ? "🌙" : "☀️"}
+      </button>
+
       <img
         id="Logo"
         src={logo}

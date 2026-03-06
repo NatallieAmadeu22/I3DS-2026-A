@@ -3,25 +3,37 @@
   --font-raleway: "Raleway", sans-serif;
 
   /* Light theme (padrão) */
-  --bg-primary: #f5f5f5;
-  --bg-secondary: #fff;
-  --text-primary: #333;
-  --text-secondary: #666;
-  --text-placeholder: #a1a1a1;
+  --bg-primary: #ffb4e8;
+  --bg-secondary: #fcc0ec96;
+  --text-primary: #130109;
+  --text-secondary: #b92c7a;
+  --text-placeholder: #af006c;
   --accent-color: #ff0095e5;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(214, 16, 165, 0.1);
   --shadow: 0px 2px 8px var(--shadow-color);
+}
+
+/* Dark theme com data-theme */
+body[data-theme="dark"] {
+  --bg-primary: #ac0053;
+  --bg-secondary: #ac1c6b50;
+  --text-primary: #f5f5f5;
+  --text-secondary: #f0f0f0;
+  --text-placeholder: #a1a1a1;
+  --accent-color: #d30074;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark theme */
-    --bg-primary: #212426;
-    --bg-secondary: #343739;
+    /* Dark theme para quem prefere tema escuro automaticamente */
+    --bg-primary: #ac0053;
+    --bg-secondary: #ff008c50;
     --text-primary: #f5f5f5;
     --text-secondary: #f0f0f0;
     --text-placeholder: #a1a1a1;
-    --accent-color: #e787bc;
+    --accent-color: #d30074;
     --shadow-color: rgba(0, 0, 0, 0.4);
     --shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
   }
@@ -45,6 +57,76 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+/* Botão de tema estilo glassmorphism */
+.theme-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 120px;
+  height: 45px;
+  border-radius: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 12px;
+  transition: all 0.4s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.theme-toggle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.theme-toggle:hover::after {
+  left: 100%;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+  background: rgba(255, 0, 149, 0.15);
+  box-shadow:
+    0 12px 40px rgba(255, 0, 149, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.theme-toggle:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.theme-toggle:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow:
+    0 0 0 4px rgba(255, 0, 149, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 #Logo {
@@ -117,6 +199,15 @@ body {
 @media screen and (max-width: 600px) {
   #App {
     padding: 4rem 2rem;
+  }
+
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    width: 100px;
+    height: 40px;
+    font-size: 1rem;
+    padding: 0 10px;
   }
 
   .search {
