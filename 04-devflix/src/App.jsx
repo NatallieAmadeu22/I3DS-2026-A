@@ -25,7 +25,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    searchMovies("Hulk"); // termo para pesquina ao carregar o site
+    const fetchInitialMovies = async () => {
+      await searchMovies("Hulk"); // termo para pesquina ao carregar o site
+    };
+    fetchInitialMovies();
   }, []);
 
   return (
@@ -60,7 +63,7 @@ const App = () => {
         <h2 className="empty">😢 Filme não encontrado 😢</h2>
       )}
 
-      <Rodape link={"https://github.com/ProfCastello"}>Natallie</Rodape>
+      <Rodape link={"https://github.com/NatallieAmadeu22"}>Natallie</Rodape>
     </div>
   );
 };
