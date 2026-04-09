@@ -78,5 +78,5 @@ const userName = (username, id) => {
 
   server.listen(PORT, ()=>{
     console.log(`Servidor está rodando na porta ${PORT}...`);
-    console.log(`Cliente deve conectar em http://seu.ip:${PORT}`);
+    console.log(`Cliente deve conectar em http://seu-ip:${PORT}`);
   });
