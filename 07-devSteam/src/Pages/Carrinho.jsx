@@ -1,8 +1,6 @@
-import { useAuth } from "../hooks/useAuth";
 import "../styles/Carrinho.css";
 
-export default function Carrinho() {
-  const { cartItems, removeFromCart, updateCart, formatarMoeda } = useAuth();
+export default function Carrinho({ cartItems, removeFromCart, updateCart, formatarMoeda }) {
 
   const total = cartItems.reduce(
     (acc, item) =>

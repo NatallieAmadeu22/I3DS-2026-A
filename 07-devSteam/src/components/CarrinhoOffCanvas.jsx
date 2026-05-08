@@ -1,17 +1,14 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function CarrinhoOffCanvas() {
+export default function CarrinhoOffCanvas({
+  cartItems,
+  isCartOpen,
+  closeCart,
+  removeFromCart,
+  updateCart,
+  formatarMoeda,
+}) {
   const navigate = useNavigate();
-  const {
-    cartItems,
-    isCartOpen,
-    closeCart,
-    removeFromCart,
-    updateCart,
-    formatarMoeda,
-  } = useContext(AuthContext);
 
   const total = cartItems.reduce(
     (acc, item) =>

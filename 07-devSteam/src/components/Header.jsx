@@ -1,17 +1,15 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
 
-function Header() {
-  const {
-    user,
-    logout,
-    isAdmin,
-    isLoggedIn,
-    openCart,
-    cartItems,
-    searchTerm,
-    setSearchTerm,
-  } = useAuth();
+function Header({
+  user,
+  logout,
+  isAdmin,
+  isLoggedIn,
+  openCart,
+  cartItems,
+  searchTerm,
+  setSearchTerm,
+}) {
 
   return (
     <header className="header">

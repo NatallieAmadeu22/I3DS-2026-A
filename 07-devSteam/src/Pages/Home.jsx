@@ -3,10 +3,8 @@ import PromoCard from "../components/PromoCard";
 import GameCard from "../components/GameCard";
 import GameModal from "../components/GameModal";
 import Rodape from "../components/Rodape/Rodape";
-import { useAuth } from "../hooks/useAuth";
 
-function Home() {
-  const { addToCart, searchTerm } = useAuth();
+function Home({ addToCart, searchTerm }) {
   const promoGames = [
     {
       id: 1,

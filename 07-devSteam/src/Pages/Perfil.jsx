@@ -1,8 +1,6 @@
-import { useAuth } from "../hooks/useAuth";
 import "../styles/Perfil.css";
 
-export default function Perfil() {
-  const { user } = useAuth();
+export default function Perfil({ user }) {
 
   return (
     <div className="perfil-container">
