@@ -1,6 +1,11 @@
-export default function PromoCard({ game }) {
+export default function PromoCard({ game, onClick, onAddCarrinho }) {
+  const handleAdd = (event) => {
+    event.stopPropagation();
+    onAddCarrinho?.(game);
+  };
+
   return (
-    <div className="promo-card">
+    <div className="promo-card promo-card-clickable" onClick={onClick}>
       <img src={game.image} alt={game.title} />
 
       <div className="promo-info">
@@ -15,7 +20,9 @@ export default function PromoCard({ game }) {
           </div>
         </div>
 
-        <button>Adicionar ao carrinho</button>
+        <button type="button" onClick={handleAdd}>
+          Adicionar ao carrinho
+        </button>
       </div>
     </div>
   );

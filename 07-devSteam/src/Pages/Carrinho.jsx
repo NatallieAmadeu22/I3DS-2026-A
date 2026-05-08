@@ -1,71 +1,53 @@
-import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import "../styles/Carrinho.css";
 
 export default function Carrinho() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      title: "Minecraft",
-      price: 99.9,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      title: "GTA V",
-      price: 149.9,
-      quantity: 2,
-    },
-  ]);
+  const { cartItems, removeFromCart, updateCart, formatarMoeda } = useAuth();
 
-  const total = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+  const total = cartItems.reduce(
+    (acc, item) =>
+      acc + (item.preco - (item.preco * item.desconto) / 100) * item.quantidade,
     0,
   );
-
-  const removeItem = (id) => {
-    setItems(items.filter((item) => item.id !== id));
-  };
-
-  const updateQuantity = (id, quantity) => {
-    setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item,
-      ),
-    );
-  };
 
   return (
     <div className="carrinho-container">
       <h1>Meu Carrinho</h1>
-      {items.length === 0 ? (
+      {cartItems.length === 0 ? (
         <p className="empty-cart">Seu carrinho está vazio</p>
       ) : (
         <>
           <div className="carrinho-items">
-            {items.map((item) => (
+            {cartItems.map((item) => (
               <div key={item.id} className="carrinho-item">
                 <div className="item-info">
-                  <h3>{item.title}</h3>
-                  <p>R$ {item.price.toFixed(2)}</p>
+                  <h3>{item.titulo}</h3>
+                  <p>{formatarMoeda(item.preco)}</p>
                 </div>
                 <div className="item-controls">
                   <input
                     type="number"
                     min="1"
-                    value={item.quantity}
+                    value={item.quantidade}
                     onChange={(e) =>
-                      updateQuantity(item.id, parseInt(e.target.value))
+                      updateCart(
+                        item,
+                        Math.max(1, parseInt(e.target.value) || 1),
+                      )
                     }
                   />
                   <button
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeFromCart(item)}
                     className="btn-remove"
                   >
                     Remover
                   </button>
                 </div>
                 <p className="item-total">
-                  R$ {(item.price * item.quantity).toFixed(2)}
+                  {formatarMoeda(
+                    (item.preco - (item.preco * item.desconto) / 100) *
+                      item.quantidade,
+                  )}
                 </p>
               </div>
             ))}
@@ -73,7 +55,7 @@ export default function Carrinho() {
           <div className="carrinho-footer">
             <div className="total">
               <strong>Total:</strong>
-              <span>R$ {total.toFixed(2)}</span>
+              <span>{formatarMoeda(total)}</span>
             </div>
             <button className="btn-checkout">Finalizar Compra</button>
           </div>

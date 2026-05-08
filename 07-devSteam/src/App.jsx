@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import CarrinhoOffCanvas from "./components/CarrinhoOffCanvas";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Home from "./Pages/Home";
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Header />
+        <CarrinhoOffCanvas />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

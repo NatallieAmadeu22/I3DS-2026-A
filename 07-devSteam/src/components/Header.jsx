@@ -2,7 +2,16 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 function Header() {
-  const { user, logout, isAdmin, isLoggedIn } = useAuth();
+  const {
+    user,
+    logout,
+    isAdmin,
+    isLoggedIn,
+    openCart,
+    cartItems,
+    searchTerm,
+    setSearchTerm,
+  } = useAuth();
 
   return (
     <header className="header">
@@ -16,7 +25,12 @@ function Header() {
         </Link>
       </div>
 
-      <input type="text" placeholder="Buscar" />
+      <input
+        type="text"
+        placeholder="Buscar jogo"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
 
       <nav className="nav-menu">
         {!isLoggedIn ? (
@@ -25,9 +39,16 @@ function Header() {
           </Link>
         ) : (
           <>
-            <Link to="/carrinho" className="nav-link">
+            <button
+              type="button"
+              className="nav-link nav-cart-button"
+              onClick={openCart}
+            >
               <img src="/src/assets/cart-variant 1.png" alt="carrinho" />
-            </Link>
+              {cartItems.length > 0 && (
+                <span className="cart-count">{cartItems.length}</span>
+              )}
+            </button>
             <Link to="/perfil" className="nav-link">
               {user?.nome}
             </Link>
