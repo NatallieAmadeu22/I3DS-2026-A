@@ -1,5 +1,6 @@
 .carrinho-container {
   max-width: 900px;
+  width: min(100%, 900px);
   margin: 40px auto;
   padding: 20px;
 }
@@ -31,6 +32,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .item-info h3 {
@@ -88,6 +91,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .total {
@@ -121,66 +126,4 @@
 .btn-checkout:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
-}
-
-@media (max-width: 768px) {
-  .carrinho-container {
-    margin: 24px auto;
-    padding: 16px;
-  }
-
-  .carrinho-container h1 {
-    font-size: 28px;
-    text-align: center;
-  }
-
-  .carrinho-item,
-  .carrinho-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-  }
-
-  .item-controls {
-    justify-content: space-between;
-  }
-
-  .item-total {
-    text-align: left;
-    min-width: auto;
-  }
-
-  .total {
-    justify-content: space-between;
-  }
-
-  .btn-checkout {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .carrinho-container {
-    padding: 12px;
-  }
-
-  .carrinho-item {
-    padding: 14px;
-  }
-
-  .item-controls {
-    flex-wrap: wrap;
-  }
-
-  .item-controls input {
-    width: 100%;
-  }
-
-  .btn-remove {
-    width: 100%;
-  }
-
-  .total span {
-    font-size: 20px;
-  }
 }
