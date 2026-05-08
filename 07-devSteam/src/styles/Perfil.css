@@ -1,0 +1,50 @@
+.perfil-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.perfil-card {
+  background: #0f3460;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+}
+
+.perfil-card h1 {
+  color: #00ff88;
+  margin-bottom: 30px;
+}
+
+.perfil-info p {
+  color: #ccc;
+  margin: 15px 0;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.perfil-info strong {
+  color: #00ff88;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge.cliente {
+  background: #00ff88;
+  color: #000;
+}
+
+.badge.admin {
+  background: #ff0055;
+  color: #fff;
+}
