@@ -58,8 +58,9 @@ export default function Login({ login }) {
           </button>
         </form>
 
-        <p className="login-hint">Cliente: cliente@devsteam.com / cliente123</p>
-        <p className="login-hint">Admin: admin@devsteam.com / admin123</p>
+        <p className="login-hint">
+          Use seu próprio e-mail e senha para entrar.
+        </p>
       </div>
     </div>
   );

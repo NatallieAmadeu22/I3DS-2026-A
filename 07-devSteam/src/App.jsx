@@ -9,22 +9,12 @@ import Perfil from "./Pages/Perfil";
 import Carrinho from "./Pages/Carrinho";
 import AdminPanel from "./Pages/AdminPanel";
 
-const USERS = [
-  {
-    id: 1,
-    nome: "Cliente",
-    email: "cliente@devsteam.com",
-    password: "cliente123",
-    level: "CLIENTE",
-  },
-  {
-    id: 2,
-    nome: "Admin",
-    email: "admin@devsteam.com",
-    password: "admin123",
-    level: "ADMIN",
-  },
-];
+const ADMIN_ACCOUNT = {
+  email: "admin@devsteam.com",
+  password: "admin123",
+  nome: "Admin",
+  level: "ADMIN",
+};
 
 const USER_STORAGE_KEY = "devsteam:user";
 const CART_STORAGE_KEY = "devsteam:cart";
@@ -62,6 +52,7 @@ function App() {
   const [cartItems, setCartItems] = useState(() => loadStoredCart());
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [lastOrder, setLastOrder] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -74,22 +65,14 @@ function App() {
   }, [cartItems]);
 
   const login = (email, password) => {
-    const userFound = USERS.find(
-      (account) => account.email === email && account.password === password,
-    );
-
-    if (!userFound) {
-      return {
-        success: false,
-        message: "Email ou senha inválidos.",
-      };
-    }
+    const isAdminAccount =
+      email === ADMIN_ACCOUNT.email && password === ADMIN_ACCOUNT.password;
 
     const userData = {
-      id: userFound.id,
-      email: userFound.email,
-      nome: userFound.nome,
-      level: userFound.level,
+      id: email,
+      email,
+      nome: isAdminAccount ? ADMIN_ACCOUNT.nome : email.split("@")[0],
+      level: isAdminAccount ? ADMIN_ACCOUNT.level : "CLIENTE",
     };
 
     setUser(userData);
@@ -114,7 +97,7 @@ function App() {
 
       if (existingItem) {
         return currentItems.map((item) =>
-          item.id === product.id
+           item.id === product.id
             ? { ...item, quantidade: item.quantidade + 1 }
             : item,
         );
@@ -138,6 +121,39 @@ function App() {
         item.id === product.id ? { ...item, quantidade } : item,
       ),
     );
+  };
+
+  const finalizePurchase = (checkoutData) => {
+    if (cartItems.length === 0) {
+      return {
+        success: false,
+        message: "Seu carrinho está vazio.",
+      };
+    }
+
+    const total = cartItems.reduce(
+      (acc, item) =>
+        acc +
+        (item.preco - (item.preco * item.desconto) / 100) * item.quantidade,
+      0,
+    );
+
+    const order = {
+      id: Date.now(),
+      customer: checkoutData,
+      items: cartItems,
+      total,
+      createdAt: new Date().toISOString(),
+    };
+
+    setLastOrder(order);
+    setCartItems([]);
+    setIsCartOpen(false);
+
+    return {
+      success: true,
+      order,
+    };
   };
 
   const formatarMoeda = (valor) => {
@@ -193,6 +209,8 @@ function App() {
                 removeFromCart={removeFromCart}
                 updateCart={updateCart}
                 formatarMoeda={formatarMoeda}
+                finalizePurchase={finalizePurchase}
+                lastOrder={lastOrder}
               />
             </ProtectedRoute>
           }
@@ -200,7 +218,11 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin} requiredLevel="ADMIN">
+            <ProtectedRoute
+              isLoggedIn={isLoggedIn}
+              isAdmin={isAdmin}
+              requiredLevel="ADMIN"
+            >
               <AdminPanel />
             </ProtectedRoute>
           }

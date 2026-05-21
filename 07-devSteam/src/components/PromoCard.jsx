@@ -15,7 +15,7 @@ export default function PromoCard({ game, onClick, onAddCarrinho }) {
           <span>-50%</span>
 
           <div>
-            <small>R$199,80</small>
+            <small>R$200,80</small>
             <strong>{game.price}</strong>
           </div>
         </div>
